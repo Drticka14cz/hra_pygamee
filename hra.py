@@ -7,6 +7,14 @@ from sys import exit
 # pygame setup
 pygame.init()
 
+
+
+
+def reset_game():
+    global player_HP, game_stat
+    player_HP = 3
+    game_stat = "Playing"
+
 def monster_animation():
     global monster_surf, monster_index #import surfu indexu ktery meni animaci v listu images
     monster_index +=0.1 #0,1 pro nižší rychlost
@@ -23,12 +31,16 @@ SCREEN_WIDTH = 800
 
 #rozlišení
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen_rect = screen.get_rect()
 
 #vytvoří hodiny
 clock = pygame.time.Clock()
 
 
 running = True
+
+font = pygame.font.Font("PixelifySans-Regular.ttf", 25)
+font_velky = pygame.font.Font("PixelifySans-Regular.ttf", 100)
 
 player = pygame.Rect((50,100,50,50))#pozice x, y, velikost x, y, || ty hodnoty v (()) tak jsou tupple - rychlejší než list
 player_speed = 5
@@ -49,61 +61,102 @@ monster_y = 450
 monster_rect = monster_idle.get_rect(midbottom=(monster_x,monster_y))
 monster_speed= 1
 
-player_HP = 100
+player_HP = 3
 nesmrtelnost = False
 čas_nesmrtelnosti = 0
 
+
+restart_button_h = 60
+restart_button_w = 200
+restart_button = pygame.Rect( 0,0,restart_button_w,restart_button_h)
+restart_button.center = (screen_rect.centerx, screen_rect.centery + 100)
+restart_button_color = "#FF0000"
+restart_button_color_hover = "#FF5959D3"
+restart_button_text_color = "#FFFFFF"
+restart_button_font =pygame.font.Font("PixelifySans-Regular.ttf", 30)
+restart_button_text = restart_button_font.render("Restart", False, restart_button_text_color)
+
 elapsed_time = 0 #počáteční hodnota časomíry
 
+game_stat = "Playing"
 
-#herní smyčka
+###############################################_________HERNÍ_SMYČKA_________################################################################################################
 while running:
+
     # kontrola eventů - aby to kdyžtak vyplo hru
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             exit()
-
+        if game_stat == "Game_Over":
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if restart_button.collidepoint(event.pos):
+                    reset_game()
 
     #proměnná key kde je co uživatel stiskl
     key = pygame.key.get_pressed()
-    if key[pygame.K_w]:
-        player.move_ip(0,-player_speed)
-    if key[pygame.K_s]:
-        player.move_ip(0,player_speed)
-    if key[pygame.K_a]:
-        player.move_ip(-player_speed, 0)
-    if key[pygame.K_d]:
-        player.move_ip(player_speed,0)
-    #obarví obrazovku
-    screen.fill("purple")
-    monster_animation()
-    monster_rect.right += monster_speed
-    if monster_rect.right >= SCREEN_WIDTH:
-        monster_speed *= -1
-    elif monster_rect.left <= 0:
-        monster_speed *=-1
-    
-    
 
-    screen.blit(monster_surf, monster_rect)
-    pygame.draw.rect(screen, (255,0,0), player)
+    if game_stat == "Playing":
 
+        if key[pygame.K_w]:
+            player.move_ip(0,-player_speed)
+        if key[pygame.K_s]:
+            player.move_ip(0,player_speed)
+        if key[pygame.K_a]:
+            player.move_ip(-player_speed, 0)
+        if key[pygame.K_d]:
+            player.move_ip(player_speed,0)
+        #obarví obrazovku
+        screen.fill("purple")
 
-    elapsed_time += clock.get_time()
-    if nesmrtelnost == True and elapsed_time >= čas_nesmrtelnosti+2000:
-        nesmrtelnost = False
-        print(f"Může zkapat")
+        text_lives = font.render(f"Životy: {player_HP}", False, "#000000")#render
+        screen.blit(text_lives, (SCREEN_HEIGHT-100, 10))
+
+        monster_animation()
+        monster_rect.right += monster_speed
+        if monster_rect.right >= SCREEN_WIDTH:
+            monster_speed *= -1
+        elif monster_rect.left <= 0:
+            monster_speed *=-1
+        
         
 
-    if player.colliderect(monster_rect) and nesmrtelnost == False:
-        player_HP -=1
-        print(f"Hráč má {player_HP}")
-        nesmrtelnost = True
-        čas_nesmrtelnosti = elapsed_time
+        screen.blit(monster_surf, monster_rect)
+        pygame.draw.rect(screen, (255,0,0), player)
+
+
+        elapsed_time += clock.get_time()
+        if nesmrtelnost == True and elapsed_time >= čas_nesmrtelnosti+500:
+            nesmrtelnost = False
+            print(f"Může zkapat")
+            
+
+        if player.colliderect(monster_rect) and nesmrtelnost == False:
+            player_HP -=1
+            print(f"Hráč má {player_HP}")
+            nesmrtelnost = True
+            čas_nesmrtelnosti = elapsed_time
+            
+        if player_HP<= 0:
+            game_stat = "Game_Over"
+            
+    elif game_stat == "Game_Over":
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        screen.fill("black")
+        go_text = font_velky.render(f"GAME OVER", False, "white")
+        go_text_rect = go_text.get_rect(center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 ))
+        screen.blit(go_text, go_text_rect)
         
-    
-    
+       
+
+        if restart_button.collidepoint(mouse_pos):
+            pygame.draw.rect(screen, restart_button_color_hover, restart_button, border_radius=15)
+
+        else:
+            pygame.draw.rect(screen, restart_button_color, restart_button, border_radius= 15)
+        screen.blit(restart_button_text, (restart_button.centerx -restart_button_text.get_width() / 2, restart_button.centery - restart_button_text.get_height() /2))
     #vše updatuje
     pygame.display.update()
     #pygame.display.flip() - prý horší - idk proč
