@@ -8,6 +8,30 @@ from sys import exit
 pygame.init()
 
 
+#ořezávání spritesheetu
+def image_cut(sheet, frame_x, frame_y, width, height, scale):# sheet je obrazek, frame_x je pozice na x, frame_y je pozice na y, width je šířka obrázku, height je výška a scale je kolikrát ho pak chcem zvětšit. př:man_brownhair_run.png, 1, 2, 16,16, 1
+    img = pygame.Surface((width, height)).convert_alpha()
+    img.blit(sheet, (0,0), ((frame_x* width), (frame_y*height), width, height))#pokud chcem první obrázek tak to je 0,0 - protože 0*16 a 0*16 tak to začne řezat z pozice 0 a 0 a 16 px po x a po y. kdybych chtěl obrázek 3. řádek 2. sloupec tak frame_x chcem 1(začnem řezat od 16.px) a frame_y 2(32px)
+    img = pygame.transform.scale(img, (width*scale, height*scale))#Scale obrázku danou hodnotou
+    img.set_colorkey((0,0,0))#udělání průhlednosti, přepsat 255 na 0
+
+    return img
+
+def player_animation(direction):
+    global player_img, player_index
+    player_index +=0.1
+    frame_count = 3
+    if player_index > frame_count:#aby to neslo do nekonecna
+        player_index = 0
+    player_img = image_cut(player_spritesheet,int(player_index),direction, 15,16,5)
+
+def player_animation_r(direction):
+    global player_img, player_index
+    player_index +=0.1
+    frame_count = 4
+    if player_index > frame_count:#aby to neslo do nekonecna
+        player_index = 0
+    player_img = image_cut(player_spritesheet,direction,int(player_index), 16,16,5)
 
 
 def reset_game():
@@ -42,7 +66,14 @@ running = True
 font = pygame.font.Font("PixelifySans-Regular.ttf", 25)
 font_velky = pygame.font.Font("PixelifySans-Regular.ttf", 100)
 
-player = pygame.Rect((50,100,50,50))#pozice x, y, velikost x, y, || ty hodnoty v (()) tak jsou tupple - rychlejší než list
+player_x = 100
+player_y = 100
+player_index = 0
+
+player_spritesheet = pygame.image.load("walk.png").convert_alpha()
+player_img = image_cut(player_spritesheet, 0, 0, 16,16, 5)
+player_rect = player_img.get_rect(midbottom = (player_x, player_y))
+#player = pygame.Rect((50,100,50,50))                    #pozice x, y, velikost x, y, || ty hodnoty v (()) tak jsou tupple - rychlejší než list
 player_speed = 5
 
 monster_idle = pygame.image.load("monsta.png").convert_alpha()
@@ -99,13 +130,17 @@ while running:
     if game_stat == "Playing":
 
         if key[pygame.K_w]:
-            player.move_ip(0,-player_speed)
+            player_animation_r(1)
+            player_rect.move_ip(0,-player_speed)
         if key[pygame.K_s]:
-            player.move_ip(0,player_speed)
+            player_animation_r(0)
+            player_rect.move_ip(0,player_speed)
         if key[pygame.K_a]:
-            player.move_ip(-player_speed, 0)
+            player_animation_r(2)
+            player_rect.move_ip(-player_speed, 0)
         if key[pygame.K_d]:
-            player.move_ip(player_speed,0)
+            player_animation_r(3)
+            player_rect.move_ip(player_speed,0)
         #obarví obrazovku
         screen.fill("purple")
 
@@ -122,8 +157,9 @@ while running:
         
 
         screen.blit(monster_surf, monster_rect)
-        pygame.draw.rect(screen, (255,0,0), player)
-
+        # pygame.draw.rect(screen, (255,0,0), player)
+        screen.blit(player_img,player_rect )
+        
 
         elapsed_time += clock.get_time()
         if nesmrtelnost == True and elapsed_time >= čas_nesmrtelnosti+500:
@@ -131,7 +167,7 @@ while running:
             print(f"Může zkapat")
             
 
-        if player.colliderect(monster_rect) and nesmrtelnost == False:
+        if player_rect.colliderect(monster_rect) and nesmrtelnost == False:
             player_HP -=1
             print(f"Hráč má {player_HP}")
             nesmrtelnost = True
