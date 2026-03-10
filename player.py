@@ -3,7 +3,7 @@ from utility import *
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.x = 100
+        self.x = 100 
         self.y = 100
         self.spritesheet = pygame.image.load("walk.png").convert_alpha()
         self.image= image_cut(self.spritesheet, 0, 0, 16,16, 5)
