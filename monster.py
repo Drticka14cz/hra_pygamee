@@ -7,11 +7,11 @@ class Monster(pygame.sprite.Sprite):
         super().__init__()
         self.x = 300
         self.y = 450
-        self.idle = pygame.image.load("monsta.png").convert_alpha()
+        self.idle = pygame.image.load("assets/sprites/monsta.png").convert_alpha()
         self.idle  = pygame.transform.rotozoom(self.idle,0,4)
-        self.run_1 = pygame.image.load("monsta_run1.png").convert_alpha()
+        self.run_1 = pygame.image.load("assets/sprites/monsta_run1.png").convert_alpha()
         self.run_1 = pygame.transform.rotozoom(self.run_1,0,4)
-        self.run_2 = pygame.image.load("monsta_run2.png").convert_alpha()
+        self.run_2 = pygame.image.load("assets/sprites/monsta_run2.png").convert_alpha()
         self.run_2 = pygame.transform.rotozoom(self.run_2,0,4)
         self.images = [self.idle, self.run_1, self.run_2]
         self.index = 0
@@ -26,13 +26,14 @@ class Monster(pygame.sprite.Sprite):
             self.index = 0
         self.image = self.images[int(self.index)]#vykreslení
     def update(self):
-        print("update")
+        
         self.rect.right += self.speed
         if self.rect.right >= SCREEN_WIDTH:
-            self.index *= -1
+            self.speed *= -1
             print("awdawdad")
         elif self.rect.left <= 0:
-            self.index *=-1
+            self.speed *=-1
             print("acip")
+        self.animation()
     def draw(self, screen):
         screen.blit(self.image, self.rect)

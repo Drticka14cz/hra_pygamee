@@ -51,8 +51,8 @@ clock = pygame.time.Clock()
 
 running = True
 
-font = pygame.font.Font("PixelifySans-Regular.ttf", 25)
-font_velky = pygame.font.Font("PixelifySans-Regular.ttf", 100)
+font = pygame.font.Font("assets/font/PixelifySans-Regular.ttf", 25)
+font_velky = pygame.font.Font("assets/font/PixelifySans-Regular.ttf", 100)
 
 
 
@@ -89,7 +89,7 @@ restart_button.center = (screen_rect.centerx, screen_rect.centery + 100)
 restart_button_color = "#FF0000"
 restart_button_color_hover = "#FF5959D3"
 restart_button_text_color = "#FFFFFF"
-restart_button_font =pygame.font.Font("PixelifySans-Regular.ttf", 30)
+restart_button_font =pygame.font.Font("assets/font/PixelifySans-Regular.ttf", 30)
 restart_button_text = restart_button_font.render("Restart", False, restart_button_text_color)
 
 player = pygame.sprite.GroupSingle()
