@@ -96,9 +96,10 @@ player = pygame.sprite.GroupSingle()
 player.add(Player())
 
 monsters = pygame.sprite.Group()
-monsters.add(Monster())
+monsters.add(Monster("Pomaly",1,300,400, True))
+monsters.add(Monster("rychly",5,100,150, False))
 
-elapsed_time = 0 #počáteční hodnota časomíry
+
 
 game_stat = "Playing"
 
@@ -134,28 +135,26 @@ while running:
 
         # screen.blit(monsters.surf, monsters.surf)
         # pygame.draw.rect(screen, (255,0,0), player)
+
+        #player
         player.draw(screen)
-        player.update()
+        player.update(monsters, clock)
+
+        #player - ohraničení obrazovky
+
+
+        #Monstra
         monsters.draw(screen)
         monsters.update()
+        
+        if player.sprite.lives<= 0:
+            game_stat = "Game_Over"
       
         
 
-        # elapsed_time += clock.get_time()
-        # if player.sprite.nesmrtelnost == True and elapsed_time >= player.sprite.čas_nesmrtelnosti+500:
-        #     player.sprite.nesmrtelnost = False
-        #     print(f"Může zkapat")
+       
             
 
-        # if player_rect.colliderect(monster_rect) and nesmrtelnost == False:
-        #     player_HP -=1
-        #     print(f"Hráč má {player_HP}")
-        #     nesmrtelnost = True
-        #     čas_nesmrtelnosti = elapsed_time
-            
-        # if player.sprite.lives<= 0:
-        #     game_stat = "Game_Over"
-            
     elif game_stat == "Game_Over":
 
         mouse_pos = pygame.mouse.get_pos()
