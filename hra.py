@@ -5,6 +5,7 @@ from settings import *
 from utility import *
 from player import *
 from monster import *
+from object import *
 
 # pygame setup
 pygame.init()
@@ -96,12 +97,14 @@ player = pygame.sprite.GroupSingle()
 player.add(Player())
 
 monsters = pygame.sprite.Group()
-monsters.add(Monster("Pomaly",1,300,400, True))
-monsters.add(Monster("rychly",5,100,150, False))
+monsters.add(Monster("Pomaly",1,300,400, True, "x"))
+monsters.add(Monster("rychly",5,100,150, False, "x"))
+monsters.add(Monster2("treti", 10,150,150, True, "y" , True))
 
 
 
 game_stat = "Playing"
+
 
 ###############################################_________HERNÍ_SMYČKA_________################################################################################################
 while running:
@@ -146,6 +149,9 @@ while running:
         #Monstra
         monsters.draw(screen)
         monsters.update()
+
+
+       
         
         if player.sprite.lives<= 0:
             game_stat = "Game_Over"

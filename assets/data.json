@@ -1,0 +1,84 @@
+{
+	"identifier": "Level_0",
+	"uniqueIdentifer": "7e2ac480-21a0-11f1-829d-7bb6fc737dac",
+	"x": 0,
+	"y": 0,
+	"width": 1600,
+	"height": 1200,
+	"bgColor": "#696A79",
+	"neighbourLevels": [],
+	"customFields" : {},
+	"layers": [
+		"Background.png"
+	],
+	"entities": {
+		"Crystal": [
+			{
+				"id": "Crystal",
+				"iid": "2c7c0a20-21a0-11f1-897c-c74210c7e0a0",
+				"layer": "Crystal",
+				"x": 416,
+				"y": 816,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal",
+				"iid": "51125790-21a0-11f1-897c-6532a8154c9a",
+				"layer": "Crystal",
+				"x": 1088,
+				"y": 528,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal",
+				"iid": "51cbe390-21a0-11f1-897c-7324d201666d",
+				"layer": "Crystal",
+				"x": 368,
+				"y": 160,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal",
+				"iid": "529c52f0-21a0-11f1-897c-5ff833709be5",
+				"layer": "Crystal",
+				"x": 144,
+				"y": 720,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal",
+				"iid": "52ff8190-21a0-11f1-897c-0f6c2401a7a5",
+				"layer": "Crystal",
+				"x": 1408,
+				"y": 112,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal",
+				"iid": "536f5a60-21a0-11f1-897c-67c7a3da351f",
+				"layer": "Crystal",
+				"x": 1424,
+				"y": 1040,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields" : {}
+			}
+		]
+	}
+}
