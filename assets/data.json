@@ -79,6 +79,85 @@
 				"color": 12470831,
 				"customFields" : {}
 			}
+		],
+		"Crystal_2": [
+			{
+				"id": "Crystal_2",
+				"iid": "f0010720-21a0-11f1-9755-0d274264bafd",
+				"layer": "Crystal",
+				"x": 416,
+				"y": 208,
+				"width": 16,
+				"height": 16,
+				"color": 14120515,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal_2",
+				"iid": "f0916040-21a0-11f1-9755-8bb9fd0ddd22",
+				"layer": "Crystal",
+				"x": 192,
+				"y": 240,
+				"width": 16,
+				"height": 16,
+				"color": 14120515,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal_2",
+				"iid": "f1a170b0-21a0-11f1-9755-3d223a1157f6",
+				"layer": "Crystal",
+				"x": 880,
+				"y": 736,
+				"width": 16,
+				"height": 16,
+				"color": 14120515,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal_2",
+				"iid": "f1e61ad0-21a0-11f1-9755-49e5119839a2",
+				"layer": "Crystal",
+				"x": 624,
+				"y": 928,
+				"width": 16,
+				"height": 16,
+				"color": 14120515,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal_2",
+				"iid": "f23a0730-21a0-11f1-9755-119d5a1a6dd6",
+				"layer": "Crystal",
+				"x": 1248,
+				"y": 1056,
+				"width": 16,
+				"height": 16,
+				"color": 14120515,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal_2",
+				"iid": "f29323b0-21a0-11f1-9755-23ced4ea18e0",
+				"layer": "Crystal",
+				"x": 1216,
+				"y": 384,
+				"width": 16,
+				"height": 16,
+				"color": 14120515,
+				"customFields" : {}
+			},
+			{
+				"id": "Crystal_2",
+				"iid": "f2e450f0-21a0-11f1-9755-bd80dbf1f35d",
+				"layer": "Crystal",
+				"x": 1104,
+				"y": 112,
+				"width": 16,
+				"height": 16,
+				"color": 14120515,
+				"customFields" : {}
+			}
 		]
 	}
 }

@@ -6,6 +6,7 @@ from utility import *
 from player import *
 from monster import *
 from object import *
+from level import *
 
 # pygame setup
 pygame.init()
@@ -101,7 +102,14 @@ monsters.add(Monster("Pomaly",1,300,400, True, "x"))
 monsters.add(Monster("rychly",5,100,150, False, "x"))
 monsters.add(Monster2("treti", 10,150,150, True, "y" , True))
 
-
+crystal_group = pygame.sprite.Group()
+crystal_group_2 = pygame.sprite.Group()
+sprite_groups = {"Crystal": crystal_group,
+                 "Crystal_2": crystal_group_2,}
+    
+level_data = "assets/data.json"
+level_background = pygame.image.load("assets/_composite.png")
+level = Level(screen, level_background, level_data, sprite_groups, )
 
 game_stat = "Playing"
 
@@ -123,10 +131,10 @@ while running:
     key = pygame.key.get_pressed()
 
     if game_stat == "Playing":
-
+        level.draw_object()
        
         #obarví obrazovku
-        screen.fill("purple")
+        # screen.fill("purple")
 
         text_lives = font.render(f"Životy: {player.sprite.lives}", False, "#000000")#render
         screen.blit(text_lives, (SCREEN_HEIGHT-100, 10))
@@ -138,6 +146,8 @@ while running:
 
         # screen.blit(monsters.surf, monsters.surf)
         # pygame.draw.rect(screen, (255,0,0), player)
+
+        
 
         #player
         player.draw(screen)
