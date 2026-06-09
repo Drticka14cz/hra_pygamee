@@ -15,6 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.čas_nesmrtelnosti = 0
         self.index = 0
         self.elapsed_time = 0
+        self.points = 0
     
     def animation(self, direction):
         frame_count = 4
@@ -23,7 +24,7 @@ class Player(pygame.sprite.Sprite):
         if self.index > frame_count:#aby to neslo do nekonecna
             self.index = 0
         self.image = image_cut(self.spritesheet,direction,int(self.index), 16,16,5)
-    def update(self, monsters, clock):
+    def update(self, monsters,crystal_group,crystal_group_2, clock):
         self.elapsed_time += clock.get_time()
         key = pygame.key.get_pressed()
         if key[pygame.K_w]:
@@ -49,6 +50,12 @@ class Player(pygame.sprite.Sprite):
                 print(f"Hráč má {self.lives}")
                 self.nesmrtelnost = True
                 self.čas_nesmrtelnosti = self.elapsed_time
+        if pygame.sprite.spritecollide(self,crystal_group_2, True ):
+            self.points +=1
+            return self.points
+        if pygame.sprite.spritecollide(self,crystal_group, True ):
+            self.points +=1
+            return self.points
             
             
             

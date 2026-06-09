@@ -109,7 +109,7 @@ sprite_groups = {"Crystal": crystal_group,
     
 level_data = "assets/data.json"
 level_background = pygame.image.load("assets/_composite.png")
-level = Level(screen, level_background, level_data, sprite_groups, )
+level = Level(screen, level_background, level_data, sprite_groups )
 
 game_stat = "Playing"
 
@@ -138,6 +138,8 @@ while running:
 
         text_lives = font.render(f"Životy: {player.sprite.lives}", False, "#000000")#render
         screen.blit(text_lives, (SCREEN_HEIGHT-100, 10))
+        text_points = font.render(f"Body: {player.sprite.points}", False,  "#000000")
+        screen.blit(text_points,(SCREEN_HEIGHT-250, 10))
 
         
        
@@ -151,7 +153,8 @@ while running:
 
         #player
         player.draw(screen)
-        player.update(monsters, clock)
+        player.update(monsters,crystal_group,crystal_group_2, clock)
+
 
         #player - ohraničení obrazovky
 
